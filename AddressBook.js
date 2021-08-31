@@ -1,4 +1,3 @@
-console.log("Welcome to The Address Book JS Program ")
 var prompt = require('prompt-sync')();
 
 let addressBookArray = new Array();
@@ -203,11 +202,14 @@ function searchByCityOrState(searchCityOrState, choice){
 
 let choice = 0;
 do {
-    console.log("Press: \n1) Add Contact \n2) Edit Contact \n3) View Contact \n4)Delete Contact\n5)Number Of Contacts\n6)Search person by city or state\n7)Exit:");
+    console.log("Press: \n1) Add Contact \n2) Edit Contact \n3) View Contact \n4)Delete Contact\n5)Number Of Contacts\n"+
+    "6)Search person by city or state\n7)View Persons b city or state\n8)Exit:");
     choice = Number(prompt("Enter your choice: "));
+    //Add contact
     if (choice == 1) {
         addContact();
     }
+    //Edit Contact
     if (choice == 2) {
         if (addressBookArray.length == 0) {
             console.log("No contacts in Addressbook.");
@@ -215,16 +217,20 @@ do {
         let userData = prompt("Enter the contact firstname which you want to edit: ");
         editContact(userData);
     }
+    //View contact
     if (choice == 3) {
         for (let i = 0; i < addressBookArray.length; i++)
             console.log(addressBookArray[i].toString(), "\n");
     }
+    //delete contact
     if (choice == 4) {
         deleteContact();
     }
+    //number of contacts in adddressBook
     if(choice == 5){
         console.log("Number of Contacts are: "+addressBookArray.reduce(contact=>contact + 1, 0));
     }
+    //Serch person by city or state
     if(choice == 6){
         console.log("1) Search By City  2) Search By State");
         //Asking user to enter the choice
@@ -239,4 +245,17 @@ do {
                     break;
         }
     }
-} while (choice != 7);
+    //View person by City or state
+    if(choice == 7){
+        console.log("1) View By City  2) View By State");
+        let ch = Number(prompt("Enter your choice: "));
+        switch (ch){
+            case 1: let city = prompt("Enter the city name: ");
+                    searchByCityOrState(city, 1);
+                    break;
+            case 2: let state = prompt("Enter the state name: ");
+                    searchByCityOrState(state, 2);
+                    break;
+        }
+    }
+} while (choice != 8);
