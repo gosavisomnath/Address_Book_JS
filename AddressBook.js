@@ -1,3 +1,4 @@
+console.log("Welcome to The Address Book JS Program ")
 var prompt = require('prompt-sync')();
 
 let addressBookArray = new Array();
@@ -209,11 +210,36 @@ function countByCityOrState(countCityOrState, choice){
         console.log("Contacts in "+countCityOrState+" state are: ",addressBookArray.filter(contact => contact.state == countCityOrState).reduce(contact => contact + 1, 0));
     }
 }
+/**
+  * sorting the entries by city state zip 
+  */
+ function sortContactByCity_State_Zip(inputToSort){
+    if(inputToSort == 1){
+        addressBookArray.sort(function(a, b) { return a.city.localeCompare(b.city)});
+        for(let i = 0; i < addressBookArray.length; i++)
+        console.log(addressBookArray[i].toString(),"\n");
+    }
+    if(inputToSort == 2){
+        addressBookArray.sort(function(a, b) { return a.state.localeCompare(b.state)});
+        for(let i = 0; i < addressBookArray.length; i++)
+        console.log(addressBookArray[i].toString(),"\n");
+    }
+    if(inputToSort == 3){
+        addressBookArray.sort(function(a, b) { return parseInt(a.zip) - parseInt(b.zip)});
+        for(let i = 0; i < addressBookArray.length; i++)
+        console.log(addressBookArray[i].toString(),"\n");
+    }
+}
 
+/**
+ * in this choice function,
+ * asking the user to choose which action he want to perform
+ */
 let choice = 0;
 do {
     console.log("Press: \n1) Add Contact \n2) Edit Contact \n3) View Contact \n4)Delete Contact\n5)Number Of Contacts\n"+
-    "6)Search person by city or state\n7)View Persons by city or state\n8)Count by City or state\n9)Sort Alphabetically\n10)Exit:");
+    "6)Search person by city or state\n7)View Persons by city or state\n8)Count by City or state\n9)Sort Alphabetically\n"+
+    "10)Sorting Contacts by city state zip\n11)Exit:");
     choice = Number(prompt("Enter your choice: "));
     //Add contact
     if (choice == 1) {
@@ -285,4 +311,10 @@ do {
     if(choice == 9){
         console.log(addressBookArray.sort((a,b)=>a.firstName.localeCompare(b.firstName)));
     }
-} while (choice != 10);
+    //Sorting entries by city state zip
+    if(choice == 10){
+        console.log("Sort Contacts based on \n1.) City \n2.) State \n3.) Zip")
+        let inputToSort = parseInt(prompt("Enter your choice:  "))
+        sortContactByCity_State_Zip(inputToSort);
+    }
+} while (choice != 11);
