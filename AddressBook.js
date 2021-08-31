@@ -98,9 +98,9 @@ class Contact {
 function addContact() {
     let firstName = prompt("Enter Firstname: ");
     let lastName = prompt("Enter Lastname: ");
-    //checking name is already present or not
+    //checking the duplicate contact
     if (addressBookArray.find((contact) => (contact.firstName + " " + contact.lastName) == (firstName + " " + lastName))) {
-        console.log("Given contact already present in addressbook.");
+        console.log("Given contact  is already present in addressbook.");
         return;
     }
     let address = prompt("Enter Address: ");
