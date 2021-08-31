@@ -1,5 +1,13 @@
+var prompt=require('prompt-sync')();
+
+let addressBookArray = new Array();
+
+
+//Creating class
 class Contact
 {
+    
+    
     //Creating a method constructor 
     constructor(...params)
     {
@@ -86,24 +94,100 @@ class Contact
     }
 }
 
-//UC3 : Create an Address Book Array and Add New Contacts to it.
-let addressBookArray = new Array();
-//Creating object
-let contact1 = new Contact("Soma", "Gosavi", "Hadapsar", "Pune", "Maharashtra","411028","123456789", "soma@gmail.com")
-addressBookArray.push(contact1)
-let contact2=new Contact("Ajit","Gund","Sus",'Pune','Maharashtra','412245',"98765421",'ajit125@gmail.com');
-addressBookArray.push(contact2)
-let contact3=new Contact("Shubham","Wagh","Chakan",'Pune','Maharashtra','411038',"258741369",'shubham@gmail.com');
-addressBookArray.push(contact3)
-console.log("ADDRESS BOOK ARRAY :");
-addressBookArray.forEach(contact => console.log(contact.toString()));
+/**
+  * function  add contact used to add the contact details
+  * @returns 
+  */
+ function addContact(){
+     let firstName = prompt("Enter Firstname: ");
+     let lastName = prompt("Enter Lastname: ");
+     //checking name is already present or not
+     if(addressBookArray.find((contact)=>(contact.firstName+" "+contact.lastName)==(firstName+" "+lastName))){   
+         console.log("Given contact already present in addressbook.");
+         return;
+     }
+     let address = prompt("Enter Address: ");
+     let city = prompt("Enter City name: ");
+     let state = prompt("Enter State name: ");
+     let zip = prompt("Enter pincode: ");
+     let phoneNumber = prompt("Enter Phone number: ");
+     let emailId = prompt("Enter email id: ");
+     try{
+         let contact = new Contact(firstName,lastName,address,city,state,zip,phoneNumber,emailId);
+         addressBookArray.push(contact);
+         console.log("Contact is added. ");
+     }catch(Exception){
+         console.log(Exception);
+     }
+ }
 
-
-//calling the object here
-console.log(contact1.toString());
-try {
-    contact1.firstName = "Vikas";
-    console.log(contact1.firstName);  
-} catch (error) {
-   console.log(error); 
-}
+/**
+* To find person by name from address book array and edit the Contact 
+*/
+ function editContact(firstName){
+    let contact;
+    for(let i = 0; i < addressBookArray.length; i++){
+        if(addressBookArray[i].firstName === firstName)
+            contact = addressBookArray[i];
+        if(contact != null){
+            let input = 1;
+            while(input != 9){
+                console.log("\nChoose to edit: \n1. First Name \n2. Last Name \n3. Address \n4. City \n5. State");
+                console.log("6. Zipcode \n7. Phone Number \n8. Email \n9. View Edited Details & Exit");
+                input = prompt("Enter Your Choice: ");
+                input = parseInt(input);
+                switch (input) {
+                    case 1: let fname = prompt("Enter the firstname: ");
+                            contact.firstName = fname;
+                            break;
+                    case 2: let lname = prompt("Enter the last Name: ");
+                            contact.lastName = lname;
+                            break;
+                    case 3: let address_edit = prompt("Enter the address: ");
+                            contact.address = address_edit;
+                            break;
+                    case 4: let city_edit = prompt("Enter the city: ");
+                            contact.city = city_edit;
+                            break;
+                    case 5: let state_edit = prompt("Enter the state: ");
+                            contact.state = state_edit;
+                            break;
+                    case 6: let zip_edit = prompt("Enter the pincode: ");
+                            contact.zip = zip_edit;
+                            break;
+                    case 7: let phone_edit = prompt("Enter the phone number: ");
+                            contact.phoneNumber = phone_edit;
+                            break;
+                    case 8: let mail_edit = prompt("Enter the email: ");
+                            contact.email = mail_edit;
+                            break;
+                    case 9: console.log("\n",contact);
+                            break;
+                    default: console.log("Choose Correct Choice");
+                           
+                }
+            }
+         }
+       }
+    }
+ 
+ let choice = 0;
+ do{
+    console.log("Press: \n1) Add Contact \n2) Edit Contact \n3) View Contact \n4)Exit:");
+    choice = Number(prompt("Enter your choice: "));
+    if(choice == 1){
+        addContact();
+    }
+    if(choice == 2){
+        if(addressBookArray.length==0){
+            console.log("No contacts in Addressbook.");
+        }
+        let userData = prompt("Enter the contact firstname which you want to edit: ");
+        editContact(userData); 
+    }
+    if(choice == 3){
+        for(let i = 0; i < addressBookArray.length; i++)
+            console.log(addressBookArray[i].toString(),"\n");
+    }
+    
+ }while(choice != 4);
