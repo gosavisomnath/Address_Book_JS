@@ -213,7 +213,7 @@ function countByCityOrState(countCityOrState, choice){
 let choice = 0;
 do {
     console.log("Press: \n1) Add Contact \n2) Edit Contact \n3) View Contact \n4)Delete Contact\n5)Number Of Contacts\n"+
-    "6)Search person by city or state\n7)View Persons by city or state\n8)Count by City or state\n9)Exit:");
+    "6)Search person by city or state\n7)View Persons by city or state\n8)Count by City or state\n9)Sort Alphabetically\n10)Exit:");
     choice = Number(prompt("Enter your choice: "));
     //Add contact
     if (choice == 1) {
@@ -281,4 +281,8 @@ do {
                     break;
         }
     }
-} while (choice != 9);
+    //Sorting in alphabetical order
+    if(choice == 9){
+        console.log(addressBookArray.sort((a,b)=>a.firstName.localeCompare(b.firstName)));
+    }
+} while (choice != 10);
