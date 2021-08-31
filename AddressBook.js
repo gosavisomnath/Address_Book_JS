@@ -93,7 +93,6 @@ class Contact {
 
 /**
   * function  add contact used to add the contact details
-  * @returns 
   */
 function addContact() {
     let firstName = prompt("Enter Firstname: ");
@@ -199,11 +198,22 @@ function searchByCityOrState(searchCityOrState, choice){
     }
     console.log("Contact: ",contacts);
 }
+/**
+*  count by City or State 
+*/
+function countByCityOrState(countCityOrState, choice){
+   if(choice == 1){
+        console.log("Contacts in "+countCityOrState+" city are: ",addressBookArray.filter(contact => contact.city == countCityOrState).reduce(contact => contact + 1, 0));
+    }
+    if(choice == 2){
+        console.log("Contacts in "+countCityOrState+" state are: ",addressBookArray.filter(contact => contact.state == countCityOrState).reduce(contact => contact + 1, 0));
+    }
+}
 
 let choice = 0;
 do {
     console.log("Press: \n1) Add Contact \n2) Edit Contact \n3) View Contact \n4)Delete Contact\n5)Number Of Contacts\n"+
-    "6)Search person by city or state\n7)View Persons b city or state\n8)Exit:");
+    "6)Search person by city or state\n7)View Persons by city or state\n8)Count by City or state\n9)Exit:");
     choice = Number(prompt("Enter your choice: "));
     //Add contact
     if (choice == 1) {
@@ -258,4 +268,17 @@ do {
                     break;
         }
     }
-} while (choice != 8);
+    //Count by city or state
+    if(choice == 8){
+        console.log("1) Count By City   2) Count By State");
+        let choice = Number(prompt("Enter your choice: "));
+        switch (choice){
+            case 1: let city = prompt("Enter the city name: ");
+                    countByCityOrState(city, 1);
+                    break;
+            case 2: let state = prompt("Enter the state name: ");
+                    countByCityOrState(state, 2);
+                    break;
+        }
+    }
+} while (choice != 9);
